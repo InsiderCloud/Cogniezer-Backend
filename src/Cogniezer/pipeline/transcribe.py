@@ -1,3 +1,4 @@
+import time
 import azure.cognitiveservices.speech as speechsdk
 from dotenv import load_dotenv
 import os
@@ -30,3 +31,4 @@ class TranscribePipeline:
         result = speech_recognizer.recognize_once_async().get()
         logger.info("Transcription completed")
         return result.text
+    

@@ -20,15 +20,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.get("/",tags=["authentication"])
 async def index():
     return HTMLResponse(content=templates.get_template("index.html").render(), status_code=200)
-    
 
-@app.get("/train")
-async def train():
-    try:
-        os.system("python main.py")
-        return Response("Training Completed Successfully")
-    except Exception as e:
-        return Response(e)
 
 @app.post("/api/predict")
 async def predict(text):
