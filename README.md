@@ -44,8 +44,11 @@ pip install -r requirements.txt
 
 > run the project
 
+Add the following environment variables to the `.env` file
+`AZURE_KEY`, `AZURE_REGION`, `HOST` and `PORT` 
+
 ```shell
-python main.py
+gunicorn app:app
 ```
 
 ## Usage
@@ -53,9 +56,17 @@ python main.py
 > To use the project, you can use the following endpoints
 
 ```shell
-curl -X POST http://{host}:{port}/predict \
+curl -X POST http://{host}:{port}/api/predict \
     -H 'Content-Type: application/json' \
-    -d '{"text": "This is a sample text"}'
+    -d '{"text": "A long text here to summarize"}'
+```
+
+> To build the docker image
+
+change the `IMAGE_NAME` and `MAGE_TAG` in the `build.sh` file and run the following command
+
+```shell
+./build.sh
 ```
 
 ## Documentation
