@@ -2,7 +2,6 @@ import os
 from Cogniezer.entity import AiModelConfig
 from transformers import AutoTokenizer, Trainer, TrainingArguments
 from transformers import AutoModelForSeq2SeqLM, DataCollatorForSeq2Seq
-from datasets import load_dataset, load_from_disk
 import torch
 from Cogniezer.logging import logger
 
