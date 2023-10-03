@@ -2,5 +2,5 @@ artifacts_root: artifacts
 
 model:
   root_dir: artifacts/model
-  model_dir: artifacts/model/pt_bigbird-samsum-model
-  tokenizer_dir: artifacts/model/pt_bigbird-samsum-tokenizer
+  model_dir: artifacts/model/final_model
+  tokenizer_dir: artifacts/model/final_tokenizer
