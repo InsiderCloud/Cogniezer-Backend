@@ -6,87 +6,142 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/InsiderCloud/Cogniezer-Backend)
 ![GitHub last commit](https://img.shields.io/github/last-commit/InsiderCloud/Cogniezer-Backend)
 
-## About
+## Overview
 
-This is the backend of the Cogniezer project, which is developed for the 2nd year project for the BSc Hons Computer Science degree at the University of Kelaniya. This is a REST API built using FastAPI. This API is used to predict the sentiment of a given text. The model is trained using the [samsum dataset](https://huggingface.co/datasets/samsum) and [MeetingBank-transcript dataset](https://huggingface.co/datasets/lytang/MeetingBank-transcript).
+Cogniezer-Backend is the backbone of the Cogniezer project, aimed at providing real-time audio summarization services. Developed as part of the BSc Hons Computer Science program at the University of Kelaniya, this REST API leverages the power of FastAPI, Azure Speech-to-Text, and the T5-base transformer model. Our system is trained on a diverse range of datasets, ensuring robust and accurate summarization.
+
+## Table of Contents
+
+* [Features](#features)
+* [Installation](#installation)
+* [Docker Support](#docker-support)
+* [API Endpoints](#api-endpoints)
+* [Contributing](#contributing)
+* [License](#license)
+* [Acknowledgements](#acknowledgements)
+
+## Features
+
+* Audio to text summarization
+* Integration with Azure Speech-to-Text
+* Built using FastAPI for high performance
+* Utilizes T5-base transformer model for summarization
+* Trained on diverse datasets for robust performance
 
 ## Installation
 
-### Clone
+### Prerequisites
 
-- Clone this repo to your local machine using
+* Python 3.7 or higher
+* Conda
+* Git
 
-```shell
+### Clone the Repository
+
+```bash
 git clone https://github.com/InsiderCloud/Cogniezer-Backend
 ```
 
-or use your own forked repo
+### Setup the Environment
 
-### Setup
-
-> setup the environment and install the dependencies
-
-```shell
+```bash
 conda create -n cogniezer python=3.7
 conda activate cogniezer
 pip install -r requirements.txt
 ```
 
-> configure the project with your own configurations in the following files
+### Configure the Project
 
-```shell
+Update the configuration files with your settings:
+
+```bash
 .
 ├── config
-│   ├── config.yaml
+│ ├── config.yaml
 ├── params.yaml
-.
+. 
 ```
 
-> run the project
+### Environment Variables
 
-Add the following environment variables to the `.env` file
-`AZURE_KEY`, `AZURE_REGION`, `HOST` and `PORT` 
+Add the following environment variables to the `.env` file:
 
-```shell
+```txt
+AZURE_KEY=your_azure_key
+AZURE_REGION=your_azure_region
+HOST=localhost
+PORT=8000
+```
+
+### Run the Project
+
+```bash
 gunicorn app:app
 ```
 
-## Usage
+## Docker Support
 
-> To use the project, you can use the following endpoints
+### Build the Docker Image
 
-```shell
-curl -X POST http://{host}:{port}/api/predict \
-    -H 'Content-Type: application/json' \
-    -d '{"text": "A long text here to summarize"}'
+Modify the `IMAGE_NAME` and `IMAGE_TAG` in the `build.sh` file and run:
+
 ```
-
-> To build the docker image
-
-change the `IMAGE_NAME` and `MAGE_TAG` in the `build.sh` file and run the following command
-
-```shell
 ./build.sh
 ```
 
-## Documentation
+## API Endpoints
 
-> To get the documentation of the project, you can use the following endpoints
+### Index
 
-```shell
-curl -X GET http://{host}:{port}/docs
+**GET** `/`
+
+Returns the main page.
+
 ```
+http://{host}:{port}/
+```
+
+### Text Summarization
+
+**POST** `/api/predict`
+
+Predicts the summary of the provided text.
+
+```bash
+curl -X POST http://{host}:{port}/api/predict \
+    -H 'Content-Type: application/json' \
+    -d '{"text": "Text to be summarized"}'
+```
+
+### Upload File
+
+**POST** `/api/uploadfile/`
+
+Uploads an audio file, transcribes it, and returns the summary.
+
+```bash
+curl -X POST http://{host}:{port}/api/uploadfile/ \
+    -H 'Content-Type: multipart/form-data' \
+    -F 'wav_file=@path_to_your_audio_file.wav'
+```
+
+## Contributing
+
+We welcome contributions from the community! Please follow these steps to contribute:
+
+* Fork the repository
+* Create a new branch for your feature or bugfix
+* Commit your changes
+* Push the branch to your fork
+* Open a pull request
 
 ## License
 
-MIT© [InsiderCloud](https://github.com/InsiderCloud)
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/InsiderCloud/Cogniezer-Backend/blob/main/LICENSE) file for details.
 
----
+## Acknowledgements
 
-## Aknowledgements
-
-- [FastAPI](https://fastapi.tiangolo.com/)
-- [HuggingFace](https://huggingface.co/)
-- [Samsum dataset](https://huggingface.co/datasets/samsum)
-- [MeetingBank-transcript dataset](https://huggingface.co/datasets/lytang/MeetingBank-transcript)
-- [University of Kelaniya](https://www.kln.ac.lk/)
+* [FastAPI](https://fastapi.tiangolo.com/)
+* [HuggingFace](https://huggingface.co/)
+* [Azure Speech-to-Text](https://azure.microsoft.com/en-us/services/cognitive-services/speech-to-text/)
+* [University of Kelaniya](https://www.kln.ac.lk/)
